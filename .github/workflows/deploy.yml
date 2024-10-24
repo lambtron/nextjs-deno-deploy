@@ -32,13 +32,13 @@ jobs:
         run: "npm install"
 
       - name: Build step
-        run: "npm run build"
+        run: "npm run build && (cp -r public .next/standalone/public; cp -r .next/static .next/standalone/.next/static; mv .next/standalone/server.js .next/standalone/server.cjs)"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "andyjiang-nextjs-deno-43"
-          entrypoint: "jsr:@deno/nextjs-start"
-          root: "."
-          include: .next, public
+          project: "andyjiang-nextjs-deno-82"
+          entrypoint: "./server.cjs"
+          root: ".next/standalone"
+          
           
